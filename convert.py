@@ -13,10 +13,6 @@ lut["shoes"]     =4
 
 xml_folder  = input("Please enter the directory path: ")
 xml_pattern = f"{xml_folder}/*.xml"
-print(xml_pattern)
-
-output_folder = os.path.join(xml_folder, "output_txt_files")
-# out_folder = input("Please enter the output folder directory for the txt label files: ")
 
 def convert_coordinates(size, box):
     dw = 1.0/size[0]
@@ -38,11 +34,7 @@ def convert_xml2yolo( lut ):
         
         xmldoc = minidom.parse(fname)
         
-        # Generate the output filename by combining the output folder with the base name of the XML file
-        base_name = os.path.basename(fname)[:-4]  # Remove the .xml extension
-        fname_out = os.path.join(output_folder, f"{base_name}.txt")
-
-        print(fname_out)
+        fname_out = (fname[:-4]+'.txt')
 
         with open(fname_out, "w") as f:
 
