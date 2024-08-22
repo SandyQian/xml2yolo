@@ -12,12 +12,10 @@ lut["plastic box"]=3
 lut["plastic cup"]=4
 
 xml_folder  = input("Please enter the directory path: ")
-xml_folder = xml_folder.replace("\\", "/")
 xml_pattern = f"{xml_folder}/*.xml"
 
-lv_up_folder = os.path.dirname(xml_folder)
-out_folder = os.path.join(lv_up_folder, "annotation_txt")
-os.makedirs(out_folder)
+# out_folder = os.path.join(xml_folder, "annotation_txt")
+# os.makedirs(out_folder)
 
 def convert_coordinates(size, box):
     dw = 1.0/size[0]
@@ -39,7 +37,7 @@ def convert_xml2yolo( lut ):
         
         xmldoc = minidom.parse(fname)
         
-        fname_out = (out_folder+fname[:-4]+'.txt')
+        fname_out = (fname[:-4]+'.txt')
 
         with open(fname_out, "w") as f:
 
