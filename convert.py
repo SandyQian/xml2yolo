@@ -5,14 +5,19 @@ import os
 import glob
 
 lut={}
-lut["accessory"] =0
-lut["top"]       =1
-lut["bottom"]    =2
-lut["bag"]       =3
-lut["shoes"]     =4
+lut["plastic bottle"]=0
+lut["plastic bag"]=1
+lut["can"]=2
+lut["plastic box"]=3
+lut["plastic cup"]=4
 
 xml_folder  = input("Please enter the directory path: ")
+xml_folder = xml_folder.replace("\\", "/")
 xml_pattern = f"{xml_folder}/*.xml"
+
+lv_up_folder = os.path.dirname(xml_folder)
+out_folder = os.path.join(lv_up_folder, "annotation_txt")
+os.makedirs(out_folder)
 
 def convert_coordinates(size, box):
     dw = 1.0/size[0]
@@ -30,11 +35,11 @@ def convert_coordinates(size, box):
 
 def convert_xml2yolo( lut ):
 
-    for fname in glob.glob("*.xml"):
+    for fname in glob.glob(xml_pattern):
         
         xmldoc = minidom.parse(fname)
         
-        fname_out = (fname[:-4]+'.txt')
+        fname_out = (out_folder+fname[:-4]+'.txt')
 
         with open(fname_out, "w") as f:
 
